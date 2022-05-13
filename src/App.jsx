@@ -7,41 +7,57 @@ import { useState } from "react";
 function App() {
   const initialRepairs = [];
   const [repairs, setRepairs] = useState(initialRepairs);
-  const addRepairHandler = (event) => {
-    const repairDesc = event.target.description.value;
+  // const [id, setId] = useState(1)
+
+  const addRepairHandler = (description) => {
+    // const repairDesc = event.target.description.value;
     setRepairs((prevState) => {
+      const id = prevState.length * Math.floor(Math.random() * 1000);
       return [
-        ...prevState,
         {
-          id: repairs.length,
+          id: id,
           completed: false,
-          description: repairDesc,
+          description: description,
         },
+        ...prevState,
+        // This will re instate the existing state
+        // move below if you want the new in the first line
       ];
     });
-    event.preventDefault();
+    console.log(repairs);
   };
 
-  const deleteRepairHandler = (event) => {
-    const targetId = +event.target.offsetParent.dataset.id;
+  const deleteRepairHandler = (id) => {
+    console.log(id);
+    // const targetId = +event.target.offsetParent.dataset.id;
     setRepairs((prevState) => {
-      return prevState.filter((repair, index) => index !== targetId);
+      return prevState.filter((repairs) => repairs.id !== +id);
     });
   };
 
-  const markRepairCompleted = (event) => {
-    const targetId = +event.target.offsetParent.dataset.id;
-    const value = repairs.find((repair) => repair.id === targetId).completed;
-    if (value === false) {
-      repairs.find((repair) => repair.id === targetId).completed = true;
-    } else {
-      repairs.find((repair) => repair.id === targetId).completed = false;
-    }
-    const newRepairs = [...repairs];
-    setRepairs(newRepairs);
+  const markRepairCompleted = (id) => {
+    // const value = repairs.find((repair) => repair.id === id).completed;
+    const updatedRepairs = repairs.map((repair) => {
+      if (repair.id === +id) {
+        console.log(repair.completed);
+        repair.completed
+          ? (repair.completed = false)
+          : (repair.completed = true);
+      }
+      return repair;
+    });
+
+    setRepairs(updatedRepairs);
+    // if (value === false) {
+    //   repairs.find((repair) => repair.id === id).completed = true;
+    // } else {
+    //   repairs.find((repair) => repair.id === id).completed = false;
+    // }
+    // const updatedRepairs = [...repairs];
+    // setRepairs(updatedRepairs);
   };
 
-  const removeRepairedHandler = (event) => {
+  const removeRepairedHandler = () => {
     setRepairs((prevState) => {
       return prevState.filter((repair) => repair.completed !== true);
     });

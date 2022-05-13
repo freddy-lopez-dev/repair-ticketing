@@ -1,19 +1,19 @@
 import Repair from "./Repair";
 
 const Repairs = (props) => {
-  const { repairList, markCompleted, deleteRepair } = props;
+  const { repairList } = props;
   return (
     <ul className="repair-list">
       {
-        repairList.map((repair, index) => {
+        repairList.map((repair) => {
           return (
             <Repair
-              key={index}
-              id={index}
+              key={repair.id}
+              id={repair.id}
               description={repair.description}
               completed={repair.completed}
-              markCompleted={markCompleted}
-              deleteRepair={deleteRepair}
+              markCompleted={props.markCompleted}
+              deleteRepair={props.deleteRepair}
             />
           );
         })
