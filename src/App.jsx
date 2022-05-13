@@ -22,6 +22,13 @@ function App() {
     event.preventDefault();
   };
 
+  const deleteRepairHandler = (event) => {
+    const targetId = +event.target.offsetParent.dataset.id;
+    setRepairs((prevState) => {
+      return prevState.filter((repair, index) => index !== targetId);
+    });
+  };
+
   const markRepairCompleted = (event) => {
     const targetId = +event.target.offsetParent.dataset.id;
     const value = repairs.find((repair) => repair.id === targetId).completed;
@@ -34,11 +41,21 @@ function App() {
     setRepairs(newRepairs);
   };
 
+  const removeRepairedHandler = (event) => {
+    setRepairs((prevState) => {
+      return prevState.filter((repair) => repair.completed !== true);
+    });
+  };
+
   return (
     <section className="fixmeapp">
       <Header addRepair={addRepairHandler} />
-      <Main repairList={repairs} markCompleted={markRepairCompleted} />
-      <Footer />
+      <Main
+        repairList={repairs}
+        markCompleted={markRepairCompleted}
+        deleteRepair={deleteRepairHandler}
+      />
+      <Footer removeRepaired={removeRepairedHandler} />
     </section>
   );
 }

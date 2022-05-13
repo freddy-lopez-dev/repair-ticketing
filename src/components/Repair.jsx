@@ -1,5 +1,5 @@
 const Repair = (props) => {
-  const { id, description, completed, markCompleted } = props;
+  const { id, description, completed, markCompleted, deleteRepair } = props;
   return (
     <li
       data-id={id}
@@ -9,7 +9,7 @@ const Repair = (props) => {
       <div className="view">
         <input className="toggle" type="checkbox" onClick={markCompleted} />
         <label>{description}</label>
-        <button className="destroy"></button>
+        <button className="destroy" onClick={deleteRepair}></button>
       </div>
     </li>
   );

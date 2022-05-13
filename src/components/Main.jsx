@@ -6,6 +6,7 @@ const Main = (props) => {
       <Repairs
         repairList={props.repairList}
         markCompleted={props.markCompleted}
+        deleteRepair={props.deleteRepair}
       />
     </section>
   );
