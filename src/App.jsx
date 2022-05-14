@@ -37,17 +37,22 @@ function App() {
 
   const markRepairCompleted = (id) => {
     // const value = repairs.find((repair) => repair.id === id).completed;
-    const updatedRepairs = repairs.map((repair) => {
-      if (repair.id === +id) {
-        console.log(repair.completed);
-        repair.completed
-          ? (repair.completed = false)
-          : (repair.completed = true);
-      }
-      return repair;
-    });
+    setRepairs(
+      repairs.map((repair) =>
+        repair.id === +id ? { ...repair, completed: !repair.completed } : repair
+      )
+    );
+    // const updatedRepairs = repairs.map((repair) => {
+    //   if (repair.id === +id) {
+    //     console.log(repair.completed);
+    //     repair.completed
+    //       ? (repair.completed = false)
+    //       : (repair.completed = true);
+    //   }
+    //   return repair;
+    // });
 
-    setRepairs(updatedRepairs);
+    // setRepairs(updatedRepairs);
     // if (value === false) {
     //   repairs.find((repair) => repair.id === id).completed = true;
     // } else {
